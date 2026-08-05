@@ -1,12 +1,13 @@
 #include <Servo.h>
 Servo servoX, servoY;
 
-const int startsensor A2;
-const int finishsensor A1;
-const int joyXpin = A3, joyYpin = A4;
-const int swPin = 2;
+const int startsensor= A1;
+const int finishsensor= A0;
+int start = 0;
+int finish = 0;
+const int joyXpin = A2, joyYpin = A3;
 const int buzzer = 8;
-const int sda_oled = A0;
+const int sda_oled = A4;
 const int scl_oled  = A5;
 
 const int posMin = 0, posMax = 160;
@@ -34,10 +35,12 @@ void setup() {
   Serial.begin(9600);
   servoX.attach(9);
   servoY.attach(10);
-  pinMode(swPin, INPUT_PULLUP);
 }
 
 void loop() {
+  start = analogRead(startsensor);
+  finish = analogRead(finishsensor);
+
   posX += axisVelocity(analogRead(joyXpin));
   posY += axisVelocity(analogRead(joyYpin));
 
@@ -50,7 +53,8 @@ void loop() {
 
   Serial.print("X: "); Serial.print(analogRead(joyXpin));
   Serial.print(" Y: "); Serial.print(analogRead(joyYpin));
-  Serial.print(" btn: "); Serial.println(digitalRead(swPin) == LOW ? "PRESS" : "-");
+  Serial.print(" Start: "); Serial.print(start);
+  Serial.print(" Finish: "); Serial.println(finish);
 
   delay(15);
 }
