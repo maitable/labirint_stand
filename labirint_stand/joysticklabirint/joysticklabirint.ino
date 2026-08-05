@@ -1,8 +1,13 @@
 #include <Servo.h>
 Servo servoX, servoY;
 
+const int startsensor A2;
+const int finishsensor A1;
 const int joyXpin = A3, joyYpin = A4;
 const int swPin = 2;
+const int buzzer = 8;
+const int sda_oled = A0;
+const int scl_oled  = A5;
 
 const int posMin = 0, posMax = 160;
 const int center = 512;
